@@ -13,9 +13,7 @@ export class HiscoresService {
   private HISCORES_URL: string = "https://services.runescape.com/m=hiscore_oldschool/index_lite.ws";
   private PLAYER_PARAM: string = "player";
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) { }
 
   public GetSkills(playerName: string): Observable<any> {
     let params = new HttpParams().set(this.PLAYER_PARAM, playerName);
