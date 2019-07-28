@@ -29,8 +29,8 @@ export class HiscoresService {
   public GetHiscoreSkills(response: string): HiscoreSkill[] {
     let hiscoreSkills: HiscoreSkill[] = [];
     let responseLines = response.split('\n');
-    let skillNames = Object.keys(Skill);
-    skillNames.forEach((skill, i) => {
+
+    Skill.AllSkills.forEach((skill, i) => {
       let tokens = responseLines[i].split(',');
       let rank = parseInt(tokens[0]);
       let level = parseInt(tokens[1]);
@@ -39,7 +39,7 @@ export class HiscoresService {
         xp = tokens[2];
       }
       let hiscoreSkill: HiscoreSkill = {
-        Skill: Skill[skill],
+        Skill: skill,
         Rank: rank,
         Level: level,
         Xp: xp
