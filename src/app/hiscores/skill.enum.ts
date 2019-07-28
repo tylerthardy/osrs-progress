@@ -6,7 +6,7 @@ export class Skill implements EnumIdentity {
     private static AllValues = {};
     public static AllSkills: Skill[] = [];
 
-    static readonly Overall = new Skill("Overall", new Color(255, 255, 255), null);
+    static readonly Overall = new Skill("Overall", new Color(50, 50, 50), null);
     static readonly Attack = new Skill("Attack", new Color(155, 32, 7), null);
     static readonly Defence = new Skill("Defence", new Color(98, 119, 190), null);
     static readonly Strength = new Skill("Strength", new Color(4, 149, 90), null);
@@ -41,11 +41,13 @@ export class Skill implements EnumIdentity {
     static readonly Clue_Scrolls_elite = new Skill("Clue Scrolls (elite)", null, null);
     static readonly Clue_Scrolls_master = new Skill("Clue Scrolls (master)", null, null);
 
+    public Color: string;
     private constructor(
-        public readonly displayValue: string,
-        public readonly color?: Color,
-        public readonly icon?: string) {
-            Skill.AllValues[displayValue] = this;
+        public readonly Name: string,
+        private readonly color?: Color,
+        public readonly Icon?: string) {
+            this.Color = color ? color.toHex() : null;
+            Skill.AllValues[Name] = this;
             Skill.AllSkills.push(this);
         }
 

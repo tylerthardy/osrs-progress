@@ -1,17 +1,18 @@
 export class Color {
     constructor(
         public r: Number,
-        public b: Number,
         public g: Number,
+        public b: Number,
         public a?: Number
     ) { }
 
-    public getHexColor(): string {
-        return "#" +
-                this.a ? this.intToHex(this.a) : "" +
-                this.intToHex(this.r) +
-                this.intToHex(this.g) +
-                this.intToHex(this.b);
+    public toHex(): string {
+        let color: string = "#" +
+            (this.a ? this.intToHex(this.a) : "") +
+            this.intToHex(this.r) +
+            this.intToHex(this.g) +
+            this.intToHex(this.b);
+        return color;
     }
 
     private intToHex(i: Number): string {
