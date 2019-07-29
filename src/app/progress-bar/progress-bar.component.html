@@ -1,6 +1,6 @@
 <div class="progress-bar">
     <div class="progress-bar-back">
-        <span class="skill-xp">{{hiscoreSkill.Xp}}</span>
+        <span class="skill-xp">{{hiscoreSkill.Xp | number}}</span>
         <div class="progress-bar-front"
             [style.width.%]="hiscoreSkill.Percent"
             [style.backgroundColor]="hiscoreSkill.Skill.Color">

@@ -6,7 +6,7 @@
 }
 .progress-bar-back {
     height: 100%;
-    background-color: gray;
+    background-color: rgb(30, 30, 30);
 }
 .progress-bar-front {
     height: 100%;
@@ -14,10 +14,12 @@
     vertical-align: middle;
 }
 .skill-name {
+    padding-left: 10px;
     line-height: 40px;
     float: left;
 }
 .skill-xp {
+    padding-right: 10px;
     line-height: 40px;
     float: right;
 }
