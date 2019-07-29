@@ -32,15 +32,24 @@ export class HiscoresService {
       let tokens = responseLines[i].split(',');
       let rank = parseInt(tokens[0]);
       let level = parseInt(tokens[1]);
-      let xp;
+      let xp, percent;
       if (tokens.length > 2) {
         xp = tokens[2];
+        if (skill == Skill.Overall) {
+          percent = xp / Skill.MAX_XP * Skill.NUMBER_OF_SKILLS * 100;
+        } else {
+          percent = xp / Skill.MAX_XP * 100;
+        }
+        if (percent > 100) {
+          percent = 100;
+        }
       }
       let hiscoreSkill: HiscoreSkill = {
         Skill: skill,
         Rank: rank,
         Level: level,
-        Xp: xp
+        Xp: xp,
+        Percent: percent
       };
       hiscoreSkills.push(hiscoreSkill);
     });

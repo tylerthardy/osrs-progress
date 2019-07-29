@@ -5,4 +5,5 @@ export interface HiscoreSkill {
     Rank: Number;
     Level: Number;
     Xp?: Number;
+    Percent?: Number;
 }

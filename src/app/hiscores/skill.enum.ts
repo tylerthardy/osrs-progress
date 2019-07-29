@@ -2,6 +2,8 @@ import { Color } from "../color/color";
 
 interface EnumIdentity { }
 export class Skill implements EnumIdentity {
+    public static readonly MAX_XP = 13034431;
+    public static readonly NUMBER_OF_SKILLS = 23;
 
     private static AllValues = {};
     public static AllSkills: Skill[] = [];
