@@ -1,9 +1,13 @@
-<div *ngIf="!skills">
+<mat-form-field>
+  <input type="text" matInput placeholder="Username"
+          [formControl]="username"
+          (change)="onUsernameChange()">
+</mat-form-field>
+<div *ngIf="!skills && username.value && blurred">
   Loading...
 </div>
 <div *ngIf="skills">
   <app-progress-bar *ngFor="let skill of skills"
-    [(hiscoreSkill)] = "skill">
+    [hiscoreSkill] = "skill">
   </app-progress-bar>
 </div>
-
