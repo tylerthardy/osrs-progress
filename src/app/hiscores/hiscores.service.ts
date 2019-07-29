@@ -36,7 +36,7 @@ export class HiscoresService {
       if (tokens.length > 2) {
         xp = tokens[2];
         if (skill == Skill.Overall) {
-          percent = xp / Skill.MAX_XP * Skill.NUMBER_OF_SKILLS * 100;
+          percent = (xp / (Skill.MAX_XP * Skill.NUMBER_OF_SKILLS)) * 100;
         } else {
           percent = xp / Skill.MAX_XP * 100;
         }
