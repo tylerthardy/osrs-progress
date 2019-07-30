@@ -51,6 +51,18 @@ export class HiscoresService {
         Xp: xp,
         Percent: percent
       };
+      if (skill == Skill.Bounty_Hunter_Hunter ||
+        skill == Skill.Bounty_Hunter_Rogue ||
+        skill == Skill.Clue_Scrolls_all ||
+        skill == Skill.Clue_Scrolls_beginner ||
+        skill == Skill.Clue_Scrolls_easy ||
+        skill == Skill.Clue_Scrolls_medium ||
+        skill == Skill.Clue_Scrolls_hard ||
+        skill == Skill.Clue_Scrolls_elite ||
+        skill == Skill.Clue_Scrolls_master ||
+        skill == Skill.Last_Man_Standing) {
+          hiscoreSkill.Xp = level
+        }
       hiscoreSkills.push(hiscoreSkill);
     });
 
