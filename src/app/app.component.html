@@ -12,7 +12,7 @@
   </mat-form-field>
   <button mat-button type="submit">Submit</button>
 </form>
-<div *ngIf="!skills && blurred">
+<div *ngIf="isLoading">
   Loading...
 </div>
 <div *ngIf="skills">

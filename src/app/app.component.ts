@@ -4,6 +4,7 @@ import { HiscoreSkill } from './hiscores/hiscore-skill';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HiscoreMode, HiscoreModes } from './hiscores/hiscoremodes.model';
 import { MatSnackBar } from '@angular/material';
+import { finalize, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,7 @@ export class AppComponent implements OnInit {
   title = 'osrs-progress';
 
   public skills: HiscoreSkill[];
-  public blurred: boolean;
-
+  public isLoading = false;
   public form: FormGroup;
   public modes: HiscoreMode[];
 
@@ -44,9 +44,10 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.hiscoresService.GetSkills(username, mode).subscribe((response: string) => {
-      this.skills = this.hiscoresService.GetHiscoreSkills(response);
-      this.blurred = false;
-    });
+    this.isLoading = true;
+    this.hiscoresService.GetSkills(username, mode).pipe(
+        tap((response: string) => this.skills = this.hiscoresService.GetHiscoreSkills(response)),
+        finalize(() => this.isLoading = false))
+      .subscribe();
   }
 }
