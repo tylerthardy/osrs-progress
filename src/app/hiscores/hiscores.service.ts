@@ -13,13 +13,13 @@ import { environment } from './../../environments/environment';
 })
 export class HiscoresService {
 
-  private CORS_ANYWHERE: string = 'https://cors-anywhere.herokuapp.com/'
-  private HISCORES_URL: string = 'https://secure.runescape.com/m={{MODE}}/index_lite.ws';
-  private PLAYER_PARAM: string = 'player';
+  private CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com/';
+  private HISCORES_URL = 'https://secure.runescape.com/m={{MODE}}/index_lite.ws';
+  private PLAYER_PARAM = 'player';
 
   private debugSkills = DebugHiscores;
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) { }
 
   public GetSkills(playerName: string, modeSlug: string): Observable<HiscoreSkill[]> {
     return this.FetchHiscores(playerName, modeSlug).pipe(
@@ -35,7 +35,7 @@ export class HiscoresService {
     const httpOptions = {
       params: httpParams,
       responseType: 'text/html' as 'json'
-    }
+    };
     const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
     return this.http.get<string>(this.CORS_ANYWHERE + url, httpOptions);
   }

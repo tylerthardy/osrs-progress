@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HiscoreSkill } from '../hiscores/hiscore-skill';
-import { Color } from '../color/color';
 
 @Component({
   selector: 'app-progress-bar',
@@ -10,7 +9,7 @@ import { Color } from '../color/color';
 export class ProgressBarComponent implements OnInit {
   @Input() hiscoreSkill: HiscoreSkill;
 
-  public Width: Number = 70;
+  public Width = 70;
 
   constructor() { }
 

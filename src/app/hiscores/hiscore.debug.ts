@@ -77,4 +77,4 @@ const DebugHiscores = `14021,2101,242221569
 -1,-1
 -1,-1
 -1,-1`;
-export { DebugHiscores }
+export { DebugHiscores };

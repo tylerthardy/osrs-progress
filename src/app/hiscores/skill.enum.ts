@@ -29,16 +29,16 @@ export class Skill {
     static readonly Runecraft = new Skill('Runecraft', '#aa8d1a', null);
     static readonly Hunter = new Skill('Hunter', '#5c5941', null);
     static readonly Construction = new Skill('Construction', '#82745f', null);
-    static readonly Bounty_Hunter_Hunter = new Skill('Bounty Hunter - Hunter', null, null, true);
-    static readonly Bounty_Hunter_Rogue = new Skill('Bounty Hunter - Rogue', null, null, true);
-    static readonly Last_Man_Standing = new Skill('Last Man Standing', null, null, true);
-    static readonly Clue_Scrolls_all = new Skill('Clue Scrolls (all)', null, null, true);
-    static readonly Clue_Scrolls_beginner = new Skill('Clue Scrolls (beginner)', null, null, true);
-    static readonly Clue_Scrolls_easy = new Skill('Clue Scrolls (easy)', null, null, true);
-    static readonly Clue_Scrolls_medium = new Skill('Clue Scrolls (medium)', null, null, true);
-    static readonly Clue_Scrolls_hard = new Skill('Clue Scrolls (hard)', null, null, true);
-    static readonly Clue_Scrolls_elite = new Skill('Clue Scrolls (elite)', null, null, true);
-    static readonly Clue_Scrolls_master = new Skill('Clue Scrolls (master)', null, null, true);
+    static readonly BOUNTY_HUNTER_HUNTER = new Skill('Bounty Hunter - Hunter', null, null, true);
+    static readonly BOUNTY_HUNTER_ROGUE = new Skill('Bounty Hunter - Rogue', null, null, true);
+    static readonly LAST_MAN_STANDING = new Skill('Last Man Standing', null, null, true);
+    static readonly CLUE_SCROLLS_ALL = new Skill('Clue Scrolls (all)', null, null, true);
+    static readonly CLUE_SCROLLS_BEGINNER = new Skill('Clue Scrolls (beginner)', null, null, true);
+    static readonly CLUE_SCROLLS_EASY = new Skill('Clue Scrolls (easy)', null, null, true);
+    static readonly CLUE_SCROLLS_MEDIUM = new Skill('Clue Scrolls (medium)', null, null, true);
+    static readonly CLUE_SCROLLS_HARD = new Skill('Clue Scrolls (hard)', null, null, true);
+    static readonly CLUE_SCROLLS_ELITE = new Skill('Clue Scrolls (elite)', null, null, true);
+    static readonly CLUE_SCROLLS_MASTER = new Skill('Clue Scrolls (master)', null, null, true);
 
     private constructor(
         public readonly Name: string,
