@@ -1,9 +1,18 @@
-<mat-form-field>
-  <input type="text" matInput placeholder="Username"
-          [formControl]="username"
-          (change)="onUsernameChange()">
-</mat-form-field>
-<div *ngIf="!skills && username.value && blurred">
+<form [formGroup]="form" (submit)="submit()">
+  <mat-form-field>
+    <input type="text" matInput placeholder="Username"
+            formControlName="username">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Game Type" formControlName="mode">
+      <mat-option *ngFor="let m of modes" [value]="m.slug">
+        {{m.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button type="submit">Submit</button>
+</form>
+<div *ngIf="!skills && blurred">
   Loading...
 </div>
 <div *ngIf="skills">

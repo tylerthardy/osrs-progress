@@ -1,8 +1,13 @@
+// https://services.runescape.com/m=hiscore_oldschool_seasonal/index_lite.ws?player=perterter
+// https://secure.runescape.com/m=hiscore_oldschool_seasonal/index_lite.ws?player=perterter
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HiscoreSkill } from './hiscore-skill';
 import { Skill } from './skill.enum';
+import { HiscoreModes } from './hiscoremodes.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +15,19 @@ import { Skill } from './skill.enum';
 export class HiscoresService {
 
   private CORS_ANYWHERE: string = "https://cors-anywhere.herokuapp.com/"
-  private HISCORES_URL: string = "https://services.runescape.com/m=hiscore_oldschool/index_lite.ws";
+  private HISCORES_URL: string = "https://secure.runescape.com/m={{MODE}}/index_lite.ws";
   private PLAYER_PARAM: string = "player";
 
   constructor(private http: HttpClient) { }
 
-  public GetSkills(playerName: string): Observable<any> {
+  public GetSkills(playerName: string, modeSlug: string): Observable<any> {
     let params = new HttpParams().set(this.PLAYER_PARAM, playerName);
     let httpOptions = {
       params: params,
       responseType: 'text/html' as "json"
     }
-    return this.http.get(this.CORS_ANYWHERE + this.HISCORES_URL, httpOptions);
+    const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
+    return this.http.get(this.CORS_ANYWHERE + url, httpOptions);
   }
 
   public GetHiscoreSkills(response: string): HiscoreSkill[] {
