@@ -6,11 +6,11 @@
 }
 .progress-bar-back {
     height: 100%;
-    background-color: rgb(180, 180, 180);
+    background-color: #919191;
 }
 .progress-bar-front {
     height: 100%;
-    background-color: blue;
+    background-color: #474747;
     vertical-align: middle;
 }
 .skill-name {

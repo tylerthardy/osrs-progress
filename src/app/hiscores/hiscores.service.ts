@@ -1,73 +1,88 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HiscoreSkill } from './hiscore-skill';
 import { Skill } from './skill.enum';
+import { DebugHiscores } from './hiscore.debug';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HiscoresService {
 
-  private CORS_ANYWHERE: string = "https://cors-anywhere.herokuapp.com/"
-  private HISCORES_URL: string = "https://secure.runescape.com/m={{MODE}}/index_lite.ws";
-  private PLAYER_PARAM: string = "player";
+  private CORS_ANYWHERE: string = 'https://cors-anywhere.herokuapp.com/'
+  private HISCORES_URL: string = 'https://secure.runescape.com/m={{MODE}}/index_lite.ws';
+  private PLAYER_PARAM: string = 'player';
 
-  constructor(private http: HttpClient) { }
+  private debugSkills = DebugHiscores;
 
-  public GetSkills(playerName: string, modeSlug: string): Observable<any> {
-    let params = new HttpParams().set(this.PLAYER_PARAM, playerName);
-    let httpOptions = {
-      params: params,
-      responseType: 'text/html' as "json"
-    }
-    const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
-    return this.http.get(this.CORS_ANYWHERE + url, httpOptions);
+  constructor(private http: HttpClient,) { }
+
+  public GetSkills(playerName: string, modeSlug: string): Observable<HiscoreSkill[]> {
+    return this.FetchHiscores(playerName, modeSlug).pipe(
+      map(response => this.TransformToSkills(response))
+    );
   }
 
-  public GetHiscoreSkills(response: string): HiscoreSkill[] {
-    let hiscoreSkills: HiscoreSkill[] = [];
-    let responseLines = response.split('\n');
+  private FetchHiscores(playerName: string, modeSlug: string): Observable<string> {
+    if (!environment.production) {
+      return of(this.debugSkills);
+    }
+    const httpParams = new HttpParams().set(this.PLAYER_PARAM, playerName);
+    const httpOptions = {
+      params: httpParams,
+      responseType: 'text/html' as 'json'
+    }
+    const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
+    return this.http.get<string>(this.CORS_ANYWHERE + url, httpOptions);
+  }
+
+  private TransformToSkills(response: string): HiscoreSkill[] {
+    const hiscoreSkills: HiscoreSkill[] = [];
+    const responseLines = response.split('\n');
 
     Skill.AllSkills.forEach((skill, i) => {
-      let tokens = responseLines[i].split(',');
-      let rank = parseInt(tokens[0]);
-      let level = parseInt(tokens[1]);
-      let xp, percent;
-      if (tokens.length > 2) {
-        xp = tokens[2];
-        if (skill == Skill.Overall) {
-          percent = (xp / (Skill.MAX_XP * Skill.NUMBER_OF_SKILLS)) * 100;
-        } else {
-          percent = xp / Skill.MAX_XP * 100;
-        }
-        if (percent > 100) {
-          percent = 100;
-        }
-      }
-      let hiscoreSkill: HiscoreSkill = {
-        Skill: skill,
-        Rank: rank,
-        Level: level,
-        Xp: xp,
-        Percent: percent
-      };
-      if (skill == Skill.Bounty_Hunter_Hunter ||
-        skill == Skill.Bounty_Hunter_Rogue ||
-        skill == Skill.Clue_Scrolls_all ||
-        skill == Skill.Clue_Scrolls_beginner ||
-        skill == Skill.Clue_Scrolls_easy ||
-        skill == Skill.Clue_Scrolls_medium ||
-        skill == Skill.Clue_Scrolls_hard ||
-        skill == Skill.Clue_Scrolls_elite ||
-        skill == Skill.Clue_Scrolls_master ||
-        skill == Skill.Last_Man_Standing) {
-          hiscoreSkill.Xp = level
-        }
+      const csv = responseLines[i];
+      const hiscoreSkill = this.getHiscoreSkillFromCsv(skill, csv);
       hiscoreSkills.push(hiscoreSkill);
     });
-
     return hiscoreSkills;
+  }
+
+  private getHiscoreSkillFromCsv(skill: Skill, csv: string): HiscoreSkill {
+    const tokens = csv.split(',');
+    const rank = parseInt(tokens[0], 10);
+    const level = parseInt(tokens[1], 10);
+
+    let xp;
+    let percent;
+    if (tokens.length > 2) {
+      xp = tokens[2];
+      if (skill === Skill.Overall) {
+        percent = (xp / (Skill.MAX_XP * Skill.NUMBER_OF_SKILLS)) * 100;
+      } else {
+        percent = xp / Skill.MAX_XP * 100;
+      }
+      if (percent > 100) {
+        percent = 100;
+      }
+    }
+
+    const hiscoreSkill: HiscoreSkill = {
+      Skill: skill,
+      Rank: rank,
+      Level: level,
+      Xp: xp,
+      Percent: percent
+    };
+
+    if (skill.nonSkill) {
+      hiscoreSkill.Xp = level;
+    }
+
+    return hiscoreSkill;
   }
 }

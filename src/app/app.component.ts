@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HiscoreMode, HiscoreModes } from './hiscores/hiscoremodes.model';
 import { MatSnackBar } from '@angular/material';
 import { finalize, tap } from 'rxjs/operators';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
   public isLoading = false;
   public form: FormGroup;
   public modes: HiscoreMode[];
+  public isProduction = environment.production;
 
   constructor(private hiscoresService: HiscoresService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
 
@@ -45,8 +47,9 @@ export class AppComponent implements OnInit {
     }
 
     this.isLoading = true;
+
     this.hiscoresService.GetSkills(username, mode).pipe(
-        tap((response: string) => this.skills = this.hiscoresService.GetHiscoreSkills(response)),
+        tap((skills: HiscoreSkill[]) => this.skills = skills.filter(skill => !skill.Skill.nonSkill)),
         finalize(() => this.isLoading = false))
       .subscribe();
   }
