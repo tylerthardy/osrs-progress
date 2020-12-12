@@ -1,17 +1,19 @@
 <h2 *ngIf="!isProduction">DEBUG MODE</h2>
 <form [formGroup]="form" (submit)="submit()">
-  <mat-form-field>
-    <input type="text" matInput placeholder="Username"
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input type="text" matInput
             formControlName="username">
   </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="Game Type" formControlName="mode">
+  <mat-form-field appearance="fill">
+    <mat-label>Game Type</mat-label>
+    <mat-select formControlName="mode">
       <mat-option *ngFor="let m of modes" [value]="m.slug">
         {{m.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-button type="submit">Submit</button>
+  <button mat-flat-button color="primary" type="submit">Submit</button>
 </form>
 <div *ngIf="isLoading">
   Loading...
