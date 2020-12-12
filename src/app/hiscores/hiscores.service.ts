@@ -1,13 +1,9 @@
-// https://services.runescape.com/m=hiscore_oldschool_seasonal/index_lite.ws?player=perterter
-// https://secure.runescape.com/m=hiscore_oldschool_seasonal/index_lite.ws?player=perterter
-
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HiscoreSkill } from './hiscore-skill';
 import { Skill } from './skill.enum';
-import { HiscoreModes } from './hiscoremodes.model';
 
 @Injectable({
   providedIn: 'root'
