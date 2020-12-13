@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { HiscoreSkill } from './hiscore-skill';
 import { Skill } from './skill.enum';
 import { DebugHiscores } from './hiscore.debug';
@@ -29,7 +29,7 @@ export class HiscoresService {
 
   private FetchHiscores(playerName: string, modeSlug: string): Observable<string> {
     if (!environment.production) {
-      return of(this.debugSkills);
+      return of(this.debugSkills).pipe(delay(2000));
     }
     const httpParams = new HttpParams().set(this.PLAYER_PARAM, playerName);
     const httpOptions = {
