@@ -8,6 +8,7 @@ import { HiscoreSkill } from '../hiscores/hiscore-skill';
 })
 export class ProgressBarComponent implements OnInit {
   @Input() hiscoreSkill: HiscoreSkill;
+  @Input() showPercent: HiscoreSkill;
 
   public Width = 70;
 

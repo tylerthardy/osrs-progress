@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { MatButtonModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { MatButtonModule, MatSelectModule, MatSnackBarModule } from '@angular/ma
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatCheckboxModule,
 
     MatSnackBarModule
   ],

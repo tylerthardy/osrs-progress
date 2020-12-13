@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
     this.modes = HiscoreModes.getAll();
     this.form = this.formBuilder.group({
       username: [!this.isProduction ? 'perterter' : null, Validators.required],
-      mode: HiscoreModes.STANDARD.slug
+      mode: HiscoreModes.STANDARD.slug,
+      showPercent: false
     });
   }
 
