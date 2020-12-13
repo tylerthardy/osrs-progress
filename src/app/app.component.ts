@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HiscoresService } from './hiscores/hiscores.service';
 import { HiscoreSkill } from './hiscores/hiscore-skill';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HiscoreMode, HiscoreModes } from './hiscores/hiscoremodes.model';
+import { HiscoreMode, HiscoreModes } from './hiscores/hiscore-modes.model';
 import { MatSnackBar } from '@angular/material';
 import { finalize, tap } from 'rxjs/operators';
 import { environment } from './../environments/environment';
