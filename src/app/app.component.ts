@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.modes = HiscoreModes.getAll();
     this.form = this.formBuilder.group({
-      username: ['perterter', Validators.required],
-      mode: HiscoreModes.SEASONAL.slug
+      username: [!this.isProduction ? 'perterter' : null, Validators.required],
+      mode: HiscoreModes.STANDARD.slug
     });
   }
 
@@ -35,10 +35,10 @@ export class AppComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    this.populateSkills();
+    this.getSkills();
   }
 
-  private populateSkills(): void {
+  private getSkills(): void {
     const username = this.form.get('username').value;
     const mode = this.form.get('mode').value;
     if (!username) {

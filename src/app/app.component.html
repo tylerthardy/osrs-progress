@@ -18,7 +18,7 @@
 <div *ngIf="isLoading">
   Loading...
 </div>
-<div *ngIf="skills">
+<div *ngIf="skills && !isLoading">
   <app-progress-bar *ngFor="let skill of skills"
     [hiscoreSkill] = "skill">
   </app-progress-bar>
