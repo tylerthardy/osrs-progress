@@ -15,11 +15,13 @@ import { environment } from './../environments/environment';
 export class AppComponent implements OnInit {
   title = 'osrs-progress';
 
-  public skills: HiscoreSkill[];
   public isLoading = false;
   public form: FormGroup;
   public modes: HiscoreMode[];
   public isProduction = environment.production;
+
+  private sortedSkills: HiscoreSkill[] = [];
+  private unsortedSkills: HiscoreSkill[] = [];
 
   constructor(private hiscoresService: HiscoresService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
 
@@ -28,7 +30,8 @@ export class AppComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: [!this.isProduction ? 'perterter' : null, Validators.required],
       mode: HiscoreModes.STANDARD.slug,
-      showPercent: false
+      showPercent: false,
+      sortSkills: false,
     });
   }
 
@@ -37,6 +40,22 @@ export class AppComponent implements OnInit {
       return;
     }
     this.getSkills();
+  }
+
+  get skills(): HiscoreSkill[] {
+    return this.form.get('sortSkills').value ?
+      this.sortedSkills :
+      this.unsortedSkills;
+  }
+
+  private sortSkills(skills: HiscoreSkill[]): HiscoreSkill[] {
+      const sorted = Object.assign([], skills);
+      const overall = sorted.shift();
+
+      sorted.sort((a, b) => a.Percent < b.Percent ? 1 : -1);
+      sorted.unshift(overall);
+
+      return sorted;
   }
 
   private getSkills(): void {
@@ -50,8 +69,13 @@ export class AppComponent implements OnInit {
     this.isLoading = true;
 
     this.hiscoresService.GetSkills(username, mode).pipe(
-        tap((skills: HiscoreSkill[]) => this.skills = skills.filter(skill => !skill.Skill.nonSkill)),
+        tap((skills: HiscoreSkill[]) => this.setSkills(skills)),
         finalize(() => this.isLoading = false))
       .subscribe();
+  }
+
+  private setSkills(skills: HiscoreSkill[]): void {
+    this.unsortedSkills = skills.filter(skill => !skill.Skill.nonSkill);
+    this.sortedSkills = Object.assign([], this.sortSkills(this.unsortedSkills));
   }
 }
