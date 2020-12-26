@@ -1,26 +1,30 @@
-<h2 *ngIf="!isProduction">DEBUG MODE</h2>
-<form [formGroup]="form" (submit)="submit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Username</mat-label>
-    <input type="text" matInput
-            formControlName="username">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Game Type</mat-label>
-    <mat-select formControlName="mode">
-      <mat-option *ngFor="let m of modes" [value]="m.slug">
-        {{m.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-flat-button color="primary" type="submit" class="mat-form-field">Submit</button>
-  <mat-checkbox formControlName="showPercent" class="mat-form-field">Show Percents</mat-checkbox>
-</form>
-<div *ngIf="isLoading">
-  Loading...
-</div>
-<div *ngIf="skills && !isLoading">
-  <app-progress-bar *ngFor="let skill of skills"
-    [hiscoreSkill]="skill" [showPercent]="form.get('showPercent').value">
-  </app-progress-bar>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex.sm="100%" fxFlex.xs="100%">
+    <h2 *ngIf="!isProduction">DEBUG MODE</h2>
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput
+                formControlName="username">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Game Type</mat-label>
+        <mat-select formControlName="mode">
+          <mat-option *ngFor="let m of modes" [value]="m.slug">
+            {{m.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" class="mat-form-field">Submit</button>
+      <mat-checkbox formControlName="showPercent" class="mat-form-field">Show Percents</mat-checkbox>
+    </form>
+    <div *ngIf="isLoading">
+      Loading...
+    </div>
+    <div *ngIf="skills && !isLoading">
+      <app-progress-bar *ngFor="let skill of skills"
+        [hiscoreSkill]="skill" [showPercent]="form.get('showPercent').value">
+      </app-progress-bar>
+    </div>
+  </div>
 </div>
