@@ -27,3 +27,6 @@ jobs:
         
       - name: Angular Build
         run: node_modules/@angular/cli/bin/ng build --prod
+
+      - name: FTP Deploy
+        run: forfiles /p dist\osrs-progress /c "curl -C -# -T @path ${{ secrets.FTPURL }}/@file --user ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }}"
