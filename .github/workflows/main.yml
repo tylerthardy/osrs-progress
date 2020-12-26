@@ -29,4 +29,5 @@ jobs:
         run: node_modules/@angular/cli/bin/ng build --prod
 
       - name: FTP Deploy
-        run: forfiles /p dist\osrs-progress /c "curl -C -# -T @path ${{ secrets.FTPURL }}/@file --user ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }}"
+        #run: forfiles /p dist\osrs-progress /c "curl -C -# -T @path ${{ secrets.FTPURL }}/@file --user ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }}"
+        run: find dist/osrs-progress -type f -exec curl -u ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }} --ftp-create-dirs -T {} ${{ secrets.FTPURL }}/{} \;
