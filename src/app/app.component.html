@@ -20,7 +20,7 @@
       <mat-checkbox formControlName="sortSkills" class="mat-form-field">Sort by Completion</mat-checkbox>
     </form>
     <div *ngIf="isLoading">
-      Loading...
+      Loading....
     </div>
     <div *ngIf="skills && !isLoading">
       <app-progress-bar *ngFor="let skill of skills"
