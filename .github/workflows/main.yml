@@ -19,8 +19,20 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: NPM install
         run: npm install
@@ -29,5 +41,4 @@ jobs:
         run: node_modules/@angular/cli/bin/ng build --prod --base-href=/osrs-progress/
 
       - name: FTP Deploy
-        #run: forfiles /p dist\osrs-progress /c "curl -C -# -T @path ${{ secrets.FTPURL }}/@file --user ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }}"
         run: find dist/osrs-progress -type f -execdir curl -u ${{ secrets.FTPUSERNAME }}:${{ secrets.FTPPASSWORD }} --ftp-create-dirs -T {} ${{ secrets.FTPURL }}/{} \;
