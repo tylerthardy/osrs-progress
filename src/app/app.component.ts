@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   public toggleColorScheme() {
-    this.colorScheme.update(this.isCurrentlyDark ? 'light' : 'dark');
+    this.colorScheme.update(this.isCurrentlyDark() ? 'light' : 'dark');
   }
 
   get skills(): HiscoreSkill[] {
