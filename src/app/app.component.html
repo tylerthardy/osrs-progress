@@ -1,6 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex.sm="100%" fxFlex.xs="100%">
-    <h2 *ngIf="!isProduction">DEBUG MODE</h2>
+    <h2>
+      <div fxFlex="80%">OSRS Max Progress Tracker<span *ngIf="!isProduction"> DEBUG MODE</span></div>
+      <div fxFlex="20%">
+        <mat-slide-toggle class="color-scheme-toggle" style="float: right" (change)="toggleColorScheme()" [checked]="isCurrentlyDark()"></mat-slide-toggle>
+      </div>
+    </h2>
     <form [formGroup]="form" (submit)="submit()">
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>

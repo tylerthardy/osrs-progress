@@ -1,0 +1,27 @@
+@mixin progress-bar-theme($foreground-color, $background-color) {
+    .progress-bar {
+        width: 100%;
+        height: 40px;
+        color: white;
+        padding-bottom:2px;
+    }
+    .progress-bar-back {
+        height: 100%;
+        background-color: $background-color;
+    }
+    .progress-bar-front {
+        height: 100%;
+        background-color: $foreground-color;
+        vertical-align: middle;
+    }
+    .skill-name {
+        padding-left: 10px;
+        line-height: 40px;
+        float: left;
+    }
+    .skill-xp {
+        padding-right: 10px;
+        line-height: 40px;
+        float: right;
+    }
+}

@@ -6,6 +6,7 @@ import { HiscoreMode, HiscoreModes } from './hiscores/hiscore-modes.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize, tap } from 'rxjs/operators';
 import { environment } from './../environments/environment';
+import { ColorSchemeService } from './color-scheme.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,13 @@ export class AppComponent implements OnInit {
   private sortedSkills: HiscoreSkill[] = [];
   private unsortedSkills: HiscoreSkill[] = [];
 
-  constructor(private hiscoresService: HiscoresService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
+  constructor(
+    private hiscoresService: HiscoresService,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    public colorScheme: ColorSchemeService) {
+      colorScheme.load();
+    }
 
   ngOnInit(): void {
     this.modes = HiscoreModes.getAll();
@@ -40,6 +47,14 @@ export class AppComponent implements OnInit {
       return;
     }
     this.getSkills();
+  }
+
+  public isCurrentlyDark(): boolean {
+    return this.colorScheme.currentActive() === 'dark';
+  }
+
+  public toggleColorScheme() {
+    this.colorScheme.update(this.isCurrentlyDark ? 'light' : 'dark');
   }
 
   get skills(): HiscoreSkill[] {

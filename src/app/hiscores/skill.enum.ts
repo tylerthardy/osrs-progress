@@ -5,7 +5,7 @@ export class Skill {
     private static AllValues = {};
     public static AllSkills: Skill[] = [];
 
-    static readonly Overall = new Skill('Overall', '#323232', null);
+    static readonly Overall = new Skill('Overall', '#555555', null);
     static readonly Attack = new Skill('Attack', '#9b2007', null);
     static readonly Defence = new Skill('Defence', '#6277be', null);
     static readonly Strength = new Skill('Strength', '#04955a', null);

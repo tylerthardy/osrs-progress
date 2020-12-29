@@ -13,7 +13,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSelectModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
+    MatIconModule,
 
     MatSnackBarModule
   ],
