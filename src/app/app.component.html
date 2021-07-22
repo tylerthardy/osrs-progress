@@ -27,6 +27,14 @@
     <div *ngIf="isLoading">
       Loading....
     </div>
+    <div *ngIf="showCorsMessage">
+      This project relies on an external website to make the OSRS hi-scores request. Please do the following to obtain your skills:
+      <ul>
+        <li>Visit <a [href]="corsLink" target="_blank">this page</a></li>
+        <li>Click the "request temporary access to the demo server" button on that page</li>
+        <li>Return here and click search again</li>
+      </ul>
+    </div>
     <div *ngIf="skills && !isLoading">
       <app-progress-bar *ngFor="let skill of skills"
         [hiscoreSkill]="skill" [showPercent]="form.get('showPercent').value">
