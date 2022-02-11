@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    this.getSkills();
+    this.fetchSkills();
   }
 
   public isCurrentlyDark(): boolean {
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
     return sorted;
   }
 
-  private getSkills(): void {
+  private fetchSkills(): void {
     const username = this.form.get('username').value;
     const mode = this.form.get('mode').value;
     if (!username) {
@@ -87,20 +87,13 @@ export class AppComponent implements OnInit {
       .getSkills(username, mode)
       .pipe(
         tap((skills: HiscoreSkill[]) => this.setSkills(skills)),
-        catchError((error: any, caught: Observable<HiscoreSkill[]>) => this.handleSkillsError(error)),
         finalize(() => (this.isLoading = false))
       )
       .subscribe();
   }
 
   private setSkills(skills: HiscoreSkill[]): void {
-    console.log(skills);
     this.unsortedSkills = skills.filter((skill) => !skill.Skill.nonSkill);
     this.sortedSkills = Object.assign([], this.sortSkills(this.unsortedSkills));
-  }
-
-  private handleSkillsError(error: any): ObservableInput<any> {
-    console.log(error);
-    return throwError(error);
   }
 }
