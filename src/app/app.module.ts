@@ -18,10 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProgressBarComponent
-  ],
+  declarations: [AppComponent, ProgressBarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -37,9 +34,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatSlideToggleModule,
     MatIconModule,
 
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

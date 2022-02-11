@@ -12,14 +12,14 @@ import { Observable, ObservableInput, throwError } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   title = 'osrs-progress';
 
   public isLoading = false;
   public showCorsMessage = false;
-  public corsLink = "https://cors-anywhere.herokuapp.com/corsdemo";
+  public corsLink = 'https://cors-anywhere.herokuapp.com/corsdemo';
   public form: FormGroup;
   public modes: HiscoreMode[];
   public isProduction = environment.production;
@@ -31,9 +31,10 @@ export class AppComponent implements OnInit {
     private hiscoresService: HiscoresService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    public colorScheme: ColorSchemeService) {
-      colorScheme.load();
-    }
+    public colorScheme: ColorSchemeService
+  ) {
+    colorScheme.load();
+  }
 
   ngOnInit(): void {
     this.modes = HiscoreModes.getAll();
@@ -61,19 +62,17 @@ export class AppComponent implements OnInit {
   }
 
   get skills(): HiscoreSkill[] {
-    return this.form.get('sortSkills').value ?
-      this.sortedSkills :
-      this.unsortedSkills;
+    return this.form.get('sortSkills').value ? this.sortedSkills : this.unsortedSkills;
   }
 
   private sortSkills(skills: HiscoreSkill[]): HiscoreSkill[] {
-      const sorted = Object.assign([], skills);
-      const overall = sorted.shift();
+    const sorted = Object.assign([], skills);
+    const overall = sorted.shift();
 
-      sorted.sort((a, b) => a.Percent < b.Percent ? 1 : -1);
-      sorted.unshift(overall);
+    sorted.sort((a, b) => (a.Percent < b.Percent ? 1 : -1));
+    sorted.unshift(overall);
 
-      return sorted;
+    return sorted;
   }
 
   private getSkills(): void {
@@ -87,15 +86,18 @@ export class AppComponent implements OnInit {
     this.isLoading = true;
     this.showCorsMessage = false;
 
-    this.hiscoresService.GetSkills(username, mode).pipe(
+    this.hiscoresService
+      .GetSkills(username, mode)
+      .pipe(
         tap((skills: HiscoreSkill[]) => this.setSkills(skills)),
         catchError((error: any, caught: Observable<HiscoreSkill[]>) => this.handleSkillsError(error)),
-        finalize(() => this.isLoading = false))
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe();
   }
 
   private setSkills(skills: HiscoreSkill[]): void {
-    this.unsortedSkills = skills.filter(skill => !skill.Skill.nonSkill);
+    this.unsortedSkills = skills.filter((skill) => !skill.Skill.nonSkill);
     this.sortedSkills = Object.assign([], this.sortSkills(this.unsortedSkills));
   }
 

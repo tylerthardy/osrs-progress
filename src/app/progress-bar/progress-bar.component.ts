@@ -4,7 +4,7 @@ import { HiscoreSkill } from '../hiscores/hiscore-skill';
 @Component({
   selector: 'app-progress-bar',
   templateUrl: './progress-bar.component.html',
-  styleUrls: ['./progress-bar.component.scss']
+  styleUrls: ['./progress-bar.component.scss'],
 })
 export class ProgressBarComponent implements OnInit {
   @Input() hiscoreSkill: HiscoreSkill;
@@ -12,8 +12,7 @@ export class ProgressBarComponent implements OnInit {
 
   public Width = 70;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

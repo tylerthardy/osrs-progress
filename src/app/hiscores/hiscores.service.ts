@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -9,22 +8,19 @@ import { DebugHiscores } from './hiscore.debug';
 import { environment } from './../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HiscoresService {
-
   private CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com/';
   private HISCORES_URL = 'https://secure.runescape.com/m={{MODE}}/index_lite.ws';
   private PLAYER_PARAM = 'player';
 
   private debugSkills = DebugHiscores;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public GetSkills(playerName: string, modeSlug: string): Observable<HiscoreSkill[]> {
-    return this.FetchHiscores(playerName, modeSlug).pipe(
-      map(response => this.TransformToSkills(response))
-    );
+    return this.FetchHiscores(playerName, modeSlug).pipe(map((response) => this.TransformToSkills(response)));
   }
 
   private FetchHiscores(playerName: string, modeSlug: string): Observable<string> {
@@ -34,7 +30,7 @@ export class HiscoresService {
     const httpParams = new HttpParams().set(this.PLAYER_PARAM, playerName);
     const httpOptions = {
       params: httpParams,
-      responseType: 'text/html' as 'json'
+      responseType: 'text/html' as 'json',
     };
     const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
     return this.http.get<string>(this.CORS_ANYWHERE + url, httpOptions);
@@ -48,7 +44,7 @@ export class HiscoresService {
       return this.getHiscoreSkillFromCsv(skill, csv);
     });
 
-    const overall = hiscoreSkills.find(skill => skill.Skill === Skill.Overall);
+    const overall = hiscoreSkills.find((skill) => skill.Skill === Skill.Overall);
     overall.Percent = this.getOverallPercentComplete(hiscoreSkills);
 
     return hiscoreSkills;
@@ -66,7 +62,7 @@ export class HiscoresService {
       Rank: rank,
       Level: level,
       Xp: xp,
-      Percent: percent
+      Percent: percent,
     };
 
     if (skill.nonSkill) {
@@ -77,7 +73,7 @@ export class HiscoresService {
   }
 
   private getSkillPercentComplete(xp: number): number {
-    let percent  = xp / Skill.MAX_XP * 100;
+    let percent = (xp / Skill.MAX_XP) * 100;
     if (percent > 100) {
       percent = 100;
     }
@@ -86,11 +82,11 @@ export class HiscoresService {
 
   private getOverallPercentComplete(skills: HiscoreSkill[]) {
     let totalXp = 0;
-    skills.forEach(skill => {
+    skills.forEach((skill) => {
       if (skill.Skill === Skill.Overall || skill.Skill.nonSkill) {
         return;
       }
-      totalXp += (skill.Xp > Skill.MAX_XP ? Skill.MAX_XP : skill.Xp);
+      totalXp += skill.Xp > Skill.MAX_XP ? Skill.MAX_XP : skill.Xp;
     });
     const percent = totalXp / (Skill.NUMBER_OF_SKILLS * Skill.MAX_XP);
     return percent * 100;
