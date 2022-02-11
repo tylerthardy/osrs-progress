@@ -3,20 +3,24 @@
     <h2>
       <div fxFlex="80%">OSRS Max Progress Tracker<span *ngIf="!isProduction"> DEBUG MODE</span></div>
       <div fxFlex="20%">
-        <mat-slide-toggle class="color-scheme-toggle" style="float: right" (change)="toggleColorScheme()" [checked]="isCurrentlyDark()"></mat-slide-toggle>
+        <mat-slide-toggle
+          class="color-scheme-toggle"
+          style="float: right"
+          (change)="toggleColorScheme()"
+          [checked]="isCurrentlyDark()"
+        ></mat-slide-toggle>
       </div>
     </h2>
     <form [formGroup]="form" (submit)="submit()">
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input type="text" matInput
-                formControlName="username">
+        <input type="text" matInput formControlName="username" />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Game Type</mat-label>
         <mat-select formControlName="mode">
           <mat-option *ngFor="let m of modes" [value]="m.slug">
-            {{m.name}}
+            {{ m.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -24,20 +28,13 @@
       <mat-checkbox formControlName="showPercent" class="mat-form-field">Show Percents</mat-checkbox>
       <mat-checkbox formControlName="sortSkills" class="mat-form-field">Sort by Completion</mat-checkbox>
     </form>
-    <div *ngIf="isLoading">
-      Loading....
-    </div>
-    <div *ngIf="showCorsMessage">
-      This project relies on an external website to make the OSRS hi-scores request. Please do the following to obtain your skills:
-      <ul>
-        <li>Visit <a [href]="corsLink" target="_blank">this page</a></li>
-        <li>Click the "request temporary access to the demo server" button on that page</li>
-        <li>Return here and click search again</li>
-      </ul>
-    </div>
+    <div *ngIf="isLoading">Loading....</div>
     <div *ngIf="skills && !isLoading">
-      <app-progress-bar *ngFor="let skill of skills"
-        [hiscoreSkill]="skill" [showPercent]="form.get('showPercent').value">
+      <app-progress-bar
+        *ngFor="let skill of skills"
+        [hiscoreSkill]="skill"
+        [showPercent]="form.get('showPercent').value"
+      >
       </app-progress-bar>
     </div>
   </div>

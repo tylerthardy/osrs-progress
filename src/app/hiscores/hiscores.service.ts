@@ -11,32 +11,29 @@ import { environment } from './../../environments/environment';
   providedIn: 'root',
 })
 export class HiscoresService {
-  private CORS_ANYWHERE = 'https://cors-anywhere.herokuapp.com/';
-  private HISCORES_URL = 'https://secure.runescape.com/m={{MODE}}/index_lite.ws';
-  private PLAYER_PARAM = 'player';
+  private HISCORES_URL = 'https://dqqgdoqhv9.execute-api.us-east-1.amazonaws.com/prod/hiscores/{{MODE}}/{{USERNAME}}';
 
   private debugSkills = DebugHiscores;
 
   constructor(private http: HttpClient) {}
 
-  public GetSkills(playerName: string, modeSlug: string): Observable<HiscoreSkill[]> {
-    return this.FetchHiscores(playerName, modeSlug).pipe(map((response) => this.TransformToSkills(response)));
+  public getSkills(playerName: string, modeSlug: string): Observable<HiscoreSkill[]> {
+    return this.fetchHiscores(playerName, modeSlug).pipe(map((response) => this.transformToSkills(response)));
   }
 
-  private FetchHiscores(playerName: string, modeSlug: string): Observable<string> {
+  private fetchHiscores(playerName: string, modeSlug: string): Observable<string> {
     if (!environment.production) {
       return of(this.debugSkills).pipe(delay(2000));
     }
-    const httpParams = new HttpParams().set(this.PLAYER_PARAM, playerName);
     const httpOptions = {
-      params: httpParams,
       responseType: 'text/html' as 'json',
     };
-    const url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
-    return this.http.get<string>(this.CORS_ANYWHERE + url, httpOptions);
+    let url = this.HISCORES_URL.replace('{{MODE}}', modeSlug);
+    url = url.replace('{{USERNAME}}', playerName);
+    return this.http.get<string>(url, httpOptions);
   }
 
-  private TransformToSkills(response: string): HiscoreSkill[] {
+  private transformToSkills(response: string): HiscoreSkill[] {
     const responseLines = response.split('\n');
 
     const hiscoreSkills: HiscoreSkill[] = Skill.AllSkills.map((skill, i) => {

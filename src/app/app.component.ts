@@ -18,8 +18,6 @@ export class AppComponent implements OnInit {
   title = 'osrs-progress';
 
   public isLoading = false;
-  public showCorsMessage = false;
-  public corsLink = 'https://cors-anywhere.herokuapp.com/corsdemo';
   public form: FormGroup;
   public modes: HiscoreMode[];
   public isProduction = environment.production;
@@ -84,10 +82,9 @@ export class AppComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.showCorsMessage = false;
 
     this.hiscoresService
-      .GetSkills(username, mode)
+      .getSkills(username, mode)
       .pipe(
         tap((skills: HiscoreSkill[]) => this.setSkills(skills)),
         catchError((error: any, caught: Observable<HiscoreSkill[]>) => this.handleSkillsError(error)),
@@ -97,13 +94,13 @@ export class AppComponent implements OnInit {
   }
 
   private setSkills(skills: HiscoreSkill[]): void {
+    console.log(skills);
     this.unsortedSkills = skills.filter((skill) => !skill.Skill.nonSkill);
     this.sortedSkills = Object.assign([], this.sortSkills(this.unsortedSkills));
   }
 
   private handleSkillsError(error: any): ObservableInput<any> {
-    this.showCorsMessage = true;
-
+    console.log(error);
     return throwError(error);
   }
 }
