@@ -10,8 +10,6 @@ export class ProgressBarComponent implements OnInit {
   @Input() hiscoreSkill: HiscoreSkill;
   @Input() showPercent: HiscoreSkill;
 
-  public Width = 70;
-
   constructor() {}
 
   ngOnInit() {}
