@@ -10,6 +10,7 @@ import { ColorSchemeService } from './color-scheme.service';
 import { Observable, ObservableInput, throwError } from 'rxjs';
 import { Skill } from './hiscores/skill.enum';
 import { MaxXpOption } from './max-xp-option.model';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-root',
@@ -66,6 +67,14 @@ export class AppComponent implements OnInit {
 
   public toggleColorScheme() {
     this.colorScheme.update(this.isCurrentlyDark() ? 'light' : 'dark');
+  }
+
+  public onModeChange(change: MatSelectChange): void {
+    if (!this.form.get('username') || !this.form.valid) {
+      return;
+    }
+
+    this.submit();
   }
 
   get maxXp(): number {

@@ -23,7 +23,10 @@ export class HiscoresService {
 
   private fetchHiscores(playerName: string, modeSlug: string): Observable<string> {
     if (!environment.production) {
-      return of(this.debugSkills).pipe(delay(2000));
+      if (!this.debugSkills[modeSlug]) {
+        modeSlug = 'normal';
+      }
+      return of(this.debugSkills[modeSlug]).pipe(delay(2000));
     }
     const httpOptions = {
       responseType: 'text/html' as 'json',

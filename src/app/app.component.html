@@ -18,7 +18,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Game Type</mat-label>
-        <mat-select formControlName="mode">
+        <mat-select formControlName="mode" (selectionChange)="onModeChange($event)">
           <mat-option *ngFor="let m of modes" [value]="m.slug">
             {{ m.name }}
           </mat-option>
