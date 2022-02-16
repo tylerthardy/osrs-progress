@@ -13,7 +13,5 @@ export class ProgressBarComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('init', this.hiscoreSkill.skill.Name);
-  }
+  ngOnInit() {}
 }
