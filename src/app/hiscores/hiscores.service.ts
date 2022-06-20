@@ -1,17 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { HiscoreOverall, HiscoreSkill } from './hiscore-skill';
-import { Skill } from './skill.enum';
-import { DebugHiscores } from './hiscore.debug';
 import { environment } from './../../environments/environment';
+import { HiscoreOverall, HiscoreSkill } from './hiscore-skill';
+import { DebugHiscores } from './hiscore.debug';
+import { Skill } from './skill.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HiscoresService {
-  private HISCORES_URL = 'https://dqqgdoqhv9.execute-api.us-east-1.amazonaws.com/prod/hiscores/{{MODE}}/{{USERNAME}}';
+  private HISCORES_URL = 'https://ipm42m3utb.execute-api.us-east-1.amazonaws.com/prod/hiscores/{{MODE}}/{{USERNAME}}';
 
   private debugSkills = DebugHiscores;
 

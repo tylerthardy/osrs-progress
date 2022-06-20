@@ -1,8 +1,27 @@
 .mat-form-field {
-    margin-right: 8px;
-    font-size: 14px;
+  margin-right: 8px;
+  font-size: 14px;
 }
 
 a:visited {
-    color: hotpink;
+  color: hotpink;
+}
+
+.menu-button.mat-icon-button {
+  height: 30px !important;
+  width: 30px !important;
+  margin-right: 10px;
+}
+.menu-button .mat-icon {
+  line-height: 14px;
+}
+.menu-select {
+  width: 0;
+  height: 0;
+}
+.menu-select .mat-select-value {
+  display: none;
+}
+::ng-deep .menu-select .mat-select-arrow {
+  display: none !important;
 }
