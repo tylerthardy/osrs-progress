@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex.sm="90%" fxFlex.xs="90%">
     <h2>
-      <div fxFlex="80%">OSRS Max Progress Tracker<span *ngIf="!isProduction"> DEBUG MODE</span></div>
+      <div fxFlex="80%">OSRS Skill Progress Tracker<span *ngIf="!isProduction"> DEBUG MODE</span></div>
       <div fxFlex="20%">
         <mat-slide-toggle
           class="color-scheme-toggle"
@@ -18,10 +18,16 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Game Type</mat-label>
-        <mat-select formControlName="mode">
+        <mat-select formControlName="mode" (selectionChange)="onModeChange($event)">
           <mat-option *ngFor="let m of modes" [value]="m.slug">
             {{ m.name }}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Max XP</mat-label>
+        <mat-select formControlName="maxXpOption" class="mat-form-field">
+          <mat-option *ngFor="let maxXp of maxXps" [value]="maxXp.value">{{ maxXp.label }}</mat-option>
         </mat-select>
       </mat-form-field>
       <button mat-flat-button color="primary" type="submit" class="mat-form-field">Submit</button>
@@ -34,6 +40,7 @@
         *ngFor="let skill of skills"
         [hiscoreSkill]="skill"
         [showPercent]="form.get('showPercent').value"
+        [maxXp]="maxXp"
       >
       </app-progress-bar>
     </div>

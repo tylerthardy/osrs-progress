@@ -8,6 +8,9 @@ import { finalize, tap, catchError } from 'rxjs/operators';
 import { environment } from './../environments/environment';
 import { ColorSchemeService } from './color-scheme.service';
 import { Observable, ObservableInput, throwError } from 'rxjs';
+import { Skill } from './hiscores/skill.enum';
+import { MaxXpOption } from './max-xp-option.model';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +24,7 @@ export class AppComponent implements OnInit {
   public form: FormGroup;
   public modes: HiscoreMode[];
   public isProduction = environment.production;
+  public maxXps: MaxXpOption[];
 
   private sortedSkills: HiscoreSkill[] = [];
   private unsortedSkills: HiscoreSkill[] = [];
@@ -36,11 +40,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.modes = HiscoreModes.getAll();
+    this.maxXps = [
+      { label: 'Standard (13m)', value: Skill.MAX_XP },
+      { label: '25m', value: Skill.XP_25M },
+      { label: '200m', value: Skill.XP_200M },
+    ];
     this.form = this.formBuilder.group({
       username: [!this.isProduction ? 'perterter' : null, Validators.required],
       mode: HiscoreModes.STANDARD.slug,
       showPercent: false,
       sortSkills: false,
+      maxXpOption: this.maxXps[0].value,
     });
   }
 
@@ -59,15 +69,27 @@ export class AppComponent implements OnInit {
     this.colorScheme.update(this.isCurrentlyDark() ? 'light' : 'dark');
   }
 
+  public onModeChange(change: MatSelectChange): void {
+    if (!this.form.get('username') || !this.form.valid) {
+      return;
+    }
+
+    this.submit();
+  }
+
+  get maxXp(): number {
+    return this.form.get('maxXpOption').value;
+  }
+
   get skills(): HiscoreSkill[] {
     return this.form.get('sortSkills').value ? this.sortedSkills : this.unsortedSkills;
   }
 
   private sortSkills(skills: HiscoreSkill[]): HiscoreSkill[] {
-    const sorted = Object.assign([], skills);
+    const sorted: HiscoreSkill[] = Object.assign([], skills);
     const overall = sorted.shift();
 
-    sorted.sort((a, b) => (a.Percent < b.Percent ? 1 : -1));
+    sorted.sort((a, b) => (a.xp < b.xp ? 1 : -1));
     sorted.unshift(overall);
 
     return sorted;
@@ -92,8 +114,8 @@ export class AppComponent implements OnInit {
       .subscribe();
   }
 
-  private setSkills(skills: HiscoreSkill[]): void {
-    this.unsortedSkills = skills.filter((skill) => !skill.Skill.nonSkill);
+  private setSkills(hiscoreSkills: HiscoreSkill[]): void {
+    this.unsortedSkills = hiscoreSkills.filter((hiscoreSkill) => !hiscoreSkill.skill.nonSkill);
     this.sortedSkills = Object.assign([], this.sortSkills(this.unsortedSkills));
   }
 }

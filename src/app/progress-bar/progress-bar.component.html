@@ -1,13 +1,15 @@
 <div class="progress-bar">
   <div class="progress-bar-back">
-    <span class="skill-name">{{ hiscoreSkill.Skill.Name }} ({{ hiscoreSkill.Level | number }})</span>
-    <span *ngIf="hiscoreSkill.Xp == -1" class="skill-xp">Unranked</span>
-    <span *ngIf="hiscoreSkill.Xp >= 0 && !showPercent" class="skill-xp">{{ hiscoreSkill.Xp | number }}</span>
-    <span *ngIf="hiscoreSkill.Xp >= 0 && showPercent" class="skill-xp">{{ hiscoreSkill.Percent / 100 | percent }}</span>
+    <span class="skill-name">{{ hiscoreSkill.skill.Name }} ({{ hiscoreSkill.level | number }})</span>
+    <span *ngIf="hiscoreSkill.xp == -1" class="skill-xp">Unranked</span>
+    <span *ngIf="hiscoreSkill.xp >= 0 && !showPercent" class="skill-xp">{{ hiscoreSkill.xp | number }}</span>
+    <span *ngIf="hiscoreSkill.xp >= 0 && showPercent" class="skill-xp">{{
+      hiscoreSkill.getPercentCompleted(this.maxXp) / 100 | percent
+    }}</span>
     <div
       class="progress-bar-front"
-      [style.width.%]="hiscoreSkill.Percent"
-      [style.backgroundColor]="hiscoreSkill.Skill.Color"
+      [style.width.%]="hiscoreSkill.getPercentCompleted(this.maxXp)"
+      [style.backgroundColor]="hiscoreSkill.skill.Color"
     ></div>
   </div>
 </div>
