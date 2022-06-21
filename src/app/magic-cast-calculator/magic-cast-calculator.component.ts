@@ -50,8 +50,7 @@ export class MagicCastCalculatorComponent implements OnInit {
   }
 
   public calculateRates(): void {
-    const targetXp =
-      LevelsService.getLevelExperience(this.form.get('targetLevel').value) - this.form.get('currentXp').value;
+    const targetXp = LevelsService.getLevelExperience(this.form.get('targetLevel').value);
     const xpDifference = targetXp - this.form.get('currentXp').value;
     this.form.patchValue({
       xpDifference: xpDifference,
