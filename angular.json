@@ -96,7 +96,7 @@
   "defaultProject": "osrs-progress",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     }
   }
 }
