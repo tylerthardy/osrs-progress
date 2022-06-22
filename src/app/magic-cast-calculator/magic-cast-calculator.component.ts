@@ -24,7 +24,7 @@ export class MagicCastCalculatorComponent implements OnInit {
   private isProduction = environment.production;
 
   public dataSource: IMagicCastRow[] = [
-    { spell: 'Fire Strike', cost: 305, xpPerThousandCasts: 23600, xpPerHour: 28500 },
+    { spell: 'Fire Strike', cost: 305, xpPerThousandCasts: 19416, xpPerHour: 23300 },
     { spell: 'Fire Bolt', cost: 400, xpPerThousandCasts: 45200, xpPerHour: 50200 },
     { spell: 'Fire Blast', cost: 525, xpPerThousandCasts: 56200, xpPerHour: 67300 },
     { spell: 'Fire Wave', cost: 655, xpPerThousandCasts: 61333, xpPerHour: 69500 },
@@ -42,11 +42,9 @@ export class MagicCastCalculatorComponent implements OnInit {
       targetXp: Skill.MAX_XP,
       xpDifference: { value: 0, disabled: true },
     });
-    this.calculateRates();
-  }
-
-  public submit(): void {
-    this.calculateRates();
+    this.form.valueChanges.subscribe(() => {
+      this.calculateRates();
+    });
   }
 
   public calculateRates(): void {

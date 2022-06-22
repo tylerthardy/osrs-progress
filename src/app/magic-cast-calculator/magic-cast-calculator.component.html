@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="submit()">
+<form [formGroup]="form">
   <mat-form-field appearance="fill">
     <mat-label>Current XP</mat-label>
     <input type="number" matInput formControlName="currentXp" />
@@ -15,10 +15,15 @@
     <mat-label>XP Difference</mat-label>
     <input type="number" matInput formControlName="xpDifference" />
   </mat-form-field>
-  <button mat-flat-button color="primary" type="submit" class="mat-form-field">Submit</button>
 </form>
-<app-progress-bar [hiscoreSkill]="getMagicSkill()" [showPercent]="true" [maxXp]="getTargetXp()"> </app-progress-bar>
-<table mat-table [dataSource]="dataSource">
+<app-progress-bar
+  [hiscoreSkill]="getMagicSkill()"
+  [showPercent]="true"
+  [maxXp]="getTargetXp()"
+  class="mat-elevation-z2"
+>
+</app-progress-bar>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
   <ng-container matColumnDef="spell">
     <th mat-header-cell *matHeaderCellDef>Spell</th>
     <td mat-cell *matCellDef="let row">{{ row.spell }}</td>
