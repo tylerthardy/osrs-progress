@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
 import { HiscoreSkill } from '../hiscores/hiscore-skill';
 import { Skill } from '../hiscores/skill.enum';
@@ -35,7 +34,7 @@ export class MagicCastCalculatorComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
