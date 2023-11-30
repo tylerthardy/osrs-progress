@@ -15,13 +15,3 @@ a:visited {
 .menu-button .mat-icon {
   line-height: 14px;
 }
-.menu-select {
-  width: 0;
-  height: 0;
-}
-.menu-select .mat-select-value {
-  display: none;
-}
-::ng-deep .menu-select .mat-select-arrow {
-  display: none !important;
-}

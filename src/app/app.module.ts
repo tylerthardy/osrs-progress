@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -30,6 +31,7 @@ import { SkillProgressModule } from './skill-progress/skill-progress.module';
     MatSelectModule,
     SkillProgressModule,
     MagicCastCalculatorModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

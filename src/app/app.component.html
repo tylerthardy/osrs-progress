@@ -1,14 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex.sm="90%" fxFlex.xs="90%">
     <h2>
-      <button class="menu-button" mat-icon-button (click)="toggleMenu()">
-        <mat-icon>menu</mat-icon>
-        <mat-select #menuSelect (selectionChange)="onChange($event)" class="menu-select">
-          <mat-option *ngFor="let menuItem of menuItems" [value]="menuItem">
-            {{ menuItem.label }}
-          </mat-option>
-        </mat-select>
-      </button>
+      <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menuOptions"><mat-icon>menu</mat-icon></button>
       <div fxFlex="80%">OSRS Skill Progress Tracker<span *ngIf="!isProduction"> DEBUG MODE</span></div>
       <div fxFlex="20%">
         <mat-slide-toggle
@@ -22,3 +15,15 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+<mat-menu #skills="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="skillMagic">Magic</button>
+</mat-menu>
+
+<mat-menu #menuOptions="matMenu">
+  <button mat-menu-item (click)="navigateTo('skills')">Skill Progress</button>
+  <button mat-menu-item [matMenuTriggerFor]="skills">Skill Calculators</button>
+</mat-menu>
+
+<mat-menu #skillMagic="matMenu">
+  <button mat-menu-item (click)="navigateTo('magic-cast-calculator')">Spell Casts</button>
+</mat-menu>
