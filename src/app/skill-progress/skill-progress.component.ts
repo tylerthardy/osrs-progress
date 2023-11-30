@@ -36,6 +36,8 @@ export class SkillProgressComponent implements OnInit {
     this.maxXps = [
       { label: 'Standard (13m)', value: Skill.MAX_XP },
       { label: '25m', value: Skill.XP_25M },
+      { label: '35m', value: Skill.XP_35M },
+      { label: '50m', value: Skill.XP_50M },
       { label: '200m', value: Skill.XP_200M },
     ];
     this.form = this.formBuilder.group({

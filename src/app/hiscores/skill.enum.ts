@@ -1,6 +1,8 @@
 export class Skill {
   public static readonly MAX_XP = 13034431;
   public static readonly XP_25M = 25000000;
+  public static readonly XP_35M = 35000000;
+  public static readonly XP_50M = 50000000;
   public static readonly XP_200M = 200000000;
   public static readonly NUMBER_OF_SKILLS = 23;
 
