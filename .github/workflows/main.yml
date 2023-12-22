@@ -51,7 +51,5 @@ jobs:
           role-duration-seconds: 900 # the ttl of the session, in seconds.
           aws-region: us-east-1 # use your region here.
 
-      # - name: FTP Deploy
-      #   run: find dist/osrs-progress -type f -execdir curl --ftp-create-dirs --insecure -T {} ${{ secrets.FTPQUALIFIEDURL }}/{} \;
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./dist/osrs-progress/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
